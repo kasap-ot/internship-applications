@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('userId')->unique();
             $table->timestamps();
             $table->float('gpa');
             $table->string('university');
             $table->string('major');
             $table->date('dateEnrolled');
             $table->integer('credits');
-
-            $table->foreign('userId')->references('id')->on('users');
         });
     }
 

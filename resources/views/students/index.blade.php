@@ -1,33 +1,43 @@
 <x-app-layout>
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-        <form method="POST" action="{{ route('students.store') }}">
-            @csrf
-            <div class="mb-4">
-                <label for="gpa" class="block font-medium text-gray-700">GPA</label>
-                <input type="text" name="gpa" id="gpa" class="mt-1 block w-full rounded-md border-gray-300">
-            </div>
+        <h2 class="text-2xl font-bold mb-4">{{ __('Student List') }}</h2>
 
-            <div class="mb-4">
-                <label for="university" class="block font-medium text-gray-700">University Name</label>
-                <input type="text" name="university" id="university" class="mt-1 block w-full rounded-md border-gray-300">
-            </div>
-
-            <div class="mb-4">
-                <label for="major" class="block font-medium text-gray-700">Major</label>
-                <input type="text" name="major" id="major" class="mt-1 block w-full rounded-md border-gray-300">
-            </div>
-
-            <div class="mb-4">
-                <label for="dateEnrolled" class="block font-medium text-gray-700">Date of Enrollment</label>
-                <input type="date" name="dateEnrolled" id="dateEnrolled" class="mt-1 block w-full rounded-md border-gray-300">
-            </div>
-
-            <div class="mb-4">
-                <label for="credits" class="block font-medium text-gray-700">Credits</label>
-                <input type="text" name="credits" id="credits" class="mt-1 block w-full rounded-md border-gray-300">
-            </div>
-
-            <x-primary-button class="mt-4">{{ __('Add Student') }}</x-primary-button>
-        </form>
+        @if($students->isEmpty())
+            <p>{{ __('No students found.') }}</p>
+        @else
+            <ul class="space-y-4">
+                @foreach($students as $student)
+                    <li class="border border-gray-300 p-4 rounded-md shadow-sm">
+                        <div>
+                            <span class="font-bold">{{ __('GPA: ') }}</span>
+                            <span>{{ $student->gpa }}</span>
+                        </div>
+                        <div>
+                            <span class="font-bold">{{ __('University: ') }}</span>
+                            <span>{{ $student->university }}</span>
+                        </div>
+                        <div>
+                            <span class="font-bold">{{ __('Major: ') }}</span>
+                            <span>{{ $student->major }}</span>
+                        </div>
+                        <div>
+                            <span class="font-bold">{{ __('Date Enrolled: ') }}</span>
+                            <span>{{ $student->dateEnrolled }}</span>
+                        </div>
+                        <div>
+                            <span class="font-bold">{{ __('Credits: ') }}</span>
+                            <span>{{ $student->credits }}</span>
+                        </div>
+                        <br> 
+                        <div>
+                            <a href="route('students.edit', $student)"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                {{ __('Edit') }}
+                            </a>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
     </div>
 </x-app-layout>

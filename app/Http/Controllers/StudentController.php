@@ -14,7 +14,10 @@ class StudentController extends Controller
      */
     public function index(): View
     {
-        return view('students.index');
+        $students = Student::all();
+        return view('students.index', [
+            'students' => $students,
+        ]);
     }
 
     /**
@@ -22,7 +25,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('students.create');
     }
 
     /**
@@ -37,8 +40,6 @@ class StudentController extends Controller
             'dateEnrolled' => 'required|date',
             'credits' => 'required|integer',
         ]);
-
-        $validatedData['userId'] = 2; # TODO
 
         Student::create($validatedData);
 

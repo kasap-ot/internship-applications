@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('students', StudentController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'create', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
