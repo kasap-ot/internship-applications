@@ -30,7 +30,7 @@
                         </div>
                         <br> 
                         <div>
-                            <a href="route('students.edit', $student)"
+                            <a href="{{ route('students.edit', $student) }}"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 {{ __('Edit') }}
                             </a>
@@ -39,5 +39,11 @@
                 @endforeach
             </ul>
         @endif
+        <div class="my-5">
+            <a href="{{ route('students.create') }}"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('Create student') }}
+            </a>
+        </div>
     </div>
 </x-app-layout>

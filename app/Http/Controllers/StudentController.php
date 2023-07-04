@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -57,17 +58,32 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit(Student $student): View
     {
-        //
+        // do we need this at all?
+        // $this->authorize('update', $student);
+ 
+        return view('students.edit', [
+            'student' => $student,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, Student $student): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'gpa' => 'decimal:2',
+            'university' => 'string|max:100',
+            'major' => 'string|max:100',
+            'dateEnrolled' => 'date',
+            'credits' => 'integer',
+        ]);
+
+        $student->update($validated);
+ 
+        return redirect(route('students.index'));
     }
 
     /**
