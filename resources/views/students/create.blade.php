@@ -27,7 +27,10 @@
                 <input type="text" name="credits" id="credits" class="mt-1 block w-full rounded-md border-gray-300">
             </div>
 
-            <x-primary-button class="mt-4">{{ __('Add Student') }}</x-primary-button>
+            <div class="mt-4 space-x-2">
+                <x-primary-button>{{ __('Add Student') }}</x-primary-button>
+                <a href="{{ route('students.index') }}">{{ __('Cancel') }}</a>
+            </div>
         </form>
     </div>
 </x-app-layout>

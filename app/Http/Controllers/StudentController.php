@@ -60,9 +60,6 @@ class StudentController extends Controller
      */
     public function edit(Student $student): View
     {
-        // do we need this at all?
-        // $this->authorize('update', $student);
- 
         return view('students.edit', [
             'student' => $student,
         ]);

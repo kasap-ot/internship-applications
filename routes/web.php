@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('students', StudentController::class)
+    ->only(['index', 'store', 'create', 'edit', 'update'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('companies', CompanyController::class)
     ->only(['index', 'store', 'create', 'edit', 'update'])
     ->middleware(['auth', 'verified']);
 
