@@ -5,38 +5,38 @@
             @method('patch')
 
             <div>
-                <label for="numEmployees" class="block font-medium text-gray-700">Number of employees</label>
-                <input type="number" name="numEmployees" id="numEmployees" value="{{ old('numEmployees', $company->numEmployees) }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <x-input-label for="numEmployees">Number of employees</x-input-label>
+                <x-form-input type="number" name="numEmployees" value="{{ old('numEmployees', $company->numEmployees) }}"/>
                 <x-input-error :messages="$errors->get('numEmployees')" class="mt-2" />
             </div>
 
             <div class="mt-4">
-                <label for="field" class="block font-medium text-gray-700">Field</label>
-                <input type="text" name="field" id="field" value="{{ old('field', $company->field) }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <x-input-label for="field">Field</x-input-label>
+                <x-form-input type="text" name="field" value="{{ old('field', $company->field) }}"/>
                 <x-input-error :messages="$errors->get('field')" class="mt-2" />
             </div>
 
             <div class="mt-4">
-                <label for="foundingYear" class="block font-medium text-gray-700">Founding year</label>
-                <input type="text" name="foundingYear" id="foundingYear" value="{{ old('foundingYear', $company->foundingYear) }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <x-input-label for="foundingYear">Founding year</x-input-label>
+                <x-form-input type="text" name="foundingYear" value="{{ old('foundingYear', $company->foundingYear) }}"/>
                 <x-input-error :messages="$errors->get('foundingYear')" class="mt-2" />
             </div>
 
             <div class="mt-4">
-                <label for="description" class="block font-medium text-gray-700">Description</label>
-                <input type="text" name="description" id="description" value="{{ old('description', $company->description) }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <x-input-label for="description">Description</x-input-label>
+                <x-form-input type="text" name="description" value="{{ old('description', $company->description) }}"/>
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
 
             <div class="mt-4">
-                <label for="website" class="block font-medium text-gray-700">Website</label>
-                <input type="text" name="website" id="website" value="{{ old('website', $company->website) }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <x-input-label for="website">Website</x-input-label>
+                <x-form-input type="text" name="website" value="{{ old('website', $company->website) }}"/>
                 <x-input-error :messages="$errors->get('website')" class="mt-2" />
             </div>
 
             <div class="mt-4">
-                <label for="address" class="block font-medium text-gray-700">Address</label>
-                <input type="text" name="address" id="address" value="{{ old('address', $company->address) }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <x-input-label for="address">Address</x-input-label>
+                <x-form-input type="text" name="address" value="{{ old('address', $company->address) }}"/>
                 <x-input-error :messages="$errors->get('address')" class="mt-2" />
             </div>
 
