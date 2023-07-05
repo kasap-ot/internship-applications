@@ -20,10 +20,9 @@
                             <span class="font-bold">{{ __('Founded in: ') }}</span>
                             <span>{{ $company->foundingYear }}</span>
                         </div>
-                        {{-- <div>
-                            <span class="font-bold">{{ __('Description: ') }}</span>
-                            <span>{{ $company->description }}</span>
-                        </div> --}}
+                        
+                        {{-- NOTE: do we need to have the description here? --}}
+
                         <div>
                             <span class="font-bold">{{ __('Website: ') }}</span>
                             <span>{{ $company->website }}</span>

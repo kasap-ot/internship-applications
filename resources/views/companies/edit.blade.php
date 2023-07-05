@@ -6,7 +6,7 @@
 
             <div>
                 <label for="numEmployees" class="block font-medium text-gray-700">Number of employees</label>
-                <input type="text" name="numEmployees" id="numEmployees" value="{{ old('numEmployees', $company->numEmployees) }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <input type="number" name="numEmployees" id="numEmployees" value="{{ old('numEmployees', $company->numEmployees) }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                 <x-input-error :messages="$errors->get('numEmployees')" class="mt-2" />
             </div>
 

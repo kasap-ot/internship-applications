@@ -24,7 +24,7 @@ class CompanyController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('companies.create');
     }
@@ -32,7 +32,7 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             'numEmployees' => 'required|integer',
@@ -59,7 +59,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Company $company)
+    public function edit(Company $company): View
     {
         return view('companies.edit', [
             'company' => $company,
@@ -69,7 +69,7 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, Company $company): RedirectResponse
     {
         $validated = $request->validate([
             'numEmployees' => 'integer',
