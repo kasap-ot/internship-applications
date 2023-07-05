@@ -41,5 +41,8 @@
                 {{ __('Create offer') }}
             </a>
         </div>
+        <div class="mt-6 p-4">
+            {{ $offers->links() }}
+        </div>
     </div>
 </x-app-layout>

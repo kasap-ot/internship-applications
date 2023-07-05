@@ -45,5 +45,8 @@
                 {{ __('Create student') }}
             </a>
         </div>
+        <div class="mt-6 p-4">
+            {{ $students->links() }}
+        </div>
     </div>
 </x-app-layout>

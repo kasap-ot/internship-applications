@@ -15,7 +15,10 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $companies = Company::all();
+        $companiesPerPage = 2;
+
+        $companies = Company::latest()->paginate($companiesPerPage);
+        
         return view('companies.index', [
             'companies' => $companies,
         ]);

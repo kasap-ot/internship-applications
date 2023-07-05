@@ -48,5 +48,8 @@
                 {{ __('Create company') }}
             </a>
         </div>
+        <div class="mt-6 p-4">
+            {{ $companies->links() }}
+        </div>
     </div>
 </x-app-layout>

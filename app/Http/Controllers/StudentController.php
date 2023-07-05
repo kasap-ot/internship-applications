@@ -15,7 +15,8 @@ class StudentController extends Controller
      */
     public function index(): View
     {
-        $students = Student::all();
+        $studentsPerPage = 2;
+        $students = Student::latest()->paginate($studentsPerPage);
         return view('students.index', [
             'students' => $students,
         ]);
