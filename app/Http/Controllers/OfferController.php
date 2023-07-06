@@ -10,18 +10,37 @@ use Illuminate\View\View;
 
 class OfferController extends Controller
 {
+    static $offersPerPage = 2;
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        $offersPerPage = 2;
+        $offers = Offer::latest()->paginate(self::$offersPerPage);
 
-        $offers = Offer::latest()->paginate($offersPerPage);
+        return view('offers.index', ['offers' => $offers,]);
+    }
 
-        return view('offers.index', [
-            'offers' => $offers,
-        ]);
+    /**
+     * Display all offers, but filtered by different fields.
+     */
+    public function filter(Request $request): View
+    {
+        $query = Offer::query();
+
+        if ($request->has('field'))
+            $query->where('field', $request->input('field'));
+
+        if ($request->has('minSalary'))
+            $query->where('salary', '>=', $request->input('minSalary'));
+
+        if ($request->has('maxSalary'))
+            $query->where('salary', '<=', $request->input('maxSalary'));
+
+        $offers = $query->paginate(self::$offersPerPage);
+
+        return view('offers.index', ['offers' => $offers,]);
     }
 
     /**

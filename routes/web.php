@@ -43,4 +43,7 @@ Route::resource('offers', OfferController::class)
     ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
+Route::get('/offers/filter', [OfferController::class, 'filter'])
+    ->name('offers.filter');
+
 require __DIR__.'/auth.php';
