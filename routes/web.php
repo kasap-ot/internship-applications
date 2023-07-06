@@ -32,15 +32,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('students', StudentController::class)
-    ->only(['index', 'store', 'create', 'edit', 'update'])
+    ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('companies', CompanyController::class)
-    ->only(['index', 'store', 'create', 'edit', 'update'])
+    ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('offers', OfferController::class)
-    ->only(['index', 'store', 'create', 'edit', 'update'])
+    ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

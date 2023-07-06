@@ -24,13 +24,20 @@
                             <span class="font-bold">{{ __('End on: ') }}</span>
                             <span>{{ $offer->dateTo }}</span>
                         </div>
-                        <br> 
-                        <div>
-                            <a href="{{ route('offers.edit', $offer) }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                {{ __('Edit') }}
-                            </a>
-                        </div>
+
+                        <form class="mt-4" action="{{ route('offers.edit', $offer) }}" method="GET">
+                            @csrf
+                            @method('GET')
+                        
+                            <x-primary-button class="mb-1" type="submit">Edit</x-danger-button>
+                        </form>
+
+                        <form action="{{ route('offers.destroy', $offer) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                        
+                            <x-danger-button type="submit">Delete</x-danger-button>
+                        </form>
                     </li>
                 @endforeach
             </ul>

@@ -28,13 +28,20 @@
                             <span class="font-bold">{{ __('Credits: ') }}</span>
                             <span>{{ $student->credits }}</span>
                         </div>
-                        <br> 
-                        <div>
-                            <a href="{{ route('students.edit', $student) }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                {{ __('Edit') }}
-                            </a>
-                        </div>
+                        
+                        <form class="mt-4" action="{{ route('students.edit', $student) }}" method="GET">
+                            @csrf
+                            @method('GET')
+                        
+                            <x-primary-button class="mb-1" type="submit">Edit</x-danger-button>
+                        </form>
+
+                        <form action="{{ route('students.destroy', $student) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                        
+                            <x-danger-button type="submit">Delete</x-danger-button>
+                        </form>
                     </li>
                 @endforeach
             </ul>

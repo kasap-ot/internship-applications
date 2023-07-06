@@ -94,6 +94,8 @@ class OfferController extends Controller
      */
     public function destroy(Offer $offer)
     {
-        //
+        $offer->delete();
+
+        return redirect(route('offers.index'))->with('success', 'Offer deleted successfully');
     }
 }
