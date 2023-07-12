@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 // Students
 Route::resource('students', StudentController::class)
     ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
@@ -55,22 +54,11 @@ Route::get('/offers/filter', [OfferController::class, 'filter'])
 
 
 // Applications
-Route::post('/applications', [ApplicationController::class, 'store']);
-Route::get('/applications', [ApplicationController::class, 'index']);
+Route::post('/applications', [ApplicationController::class, 'apply']);
+Route::get('/applications/student/{studentId}', [ApplicationController::class, 'applications']);
+Route::get('/applications/offer/{offer}', [ApplicationController::class, 'applicants']);
+Route::put('/applications', [ApplicationController::class, 'accept']);
+Route::delete('/applications/{id}', [ApplicationController::class, 'cancel']);
 
-Route::get('/applications/{studentId}/{offerId}', [ApplicationController::class, 'show'])
-    ->where('studentId', '[0-9]+')
-    ->where('offerId', '[0-9]+');
-
-Route::get('/applications/student/{studentId}', [ApplicationController::class, 'showByStudent']);
-Route::get('/applications/offer/{offerId}', [ApplicationController::class, 'showByOffer']);
-
-Route::patch('/applications/{studentId}/{offerId}', [ApplicationController::class, 'update'])
-    ->where('studentId', '[0-9]+')
-    ->where('offerId', '[0-9]+');
-
-Route::delete('/applications/{studentId}/{offerId}', [ApplicationController::class, 'destroy'])
-    ->where('studentId', '[0-9]+')
-    ->where('offerId', '[0-9]+');
 
 require __DIR__.'/auth.php';

@@ -51,5 +51,17 @@
         <div class="mt-6 p-4">
             {{ $offers->links() }}
         </div>
+        
+        <form action="/applications?studentId=7&offerId=2" method="POST">
+            @csrf
+            <x-danger-button type="submit">APPLY</x-danger-button>
+        </form>
+
+        <form action="/applications?studentId=7&offerId=2" method="POST">
+            @csrf
+            @method('PUT')
+            <x-danger-button type="submit">UPDATE</x-danger-button>
+        </form>
+    
     </div>
 </x-app-layout>

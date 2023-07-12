@@ -8,77 +8,72 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
+use App\Models\Student;
+use App\Models\Offer;
+
+use Illuminate\Support\Facades\DB;
+
 class ApplicationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+    /*
+     * When the student clicks 'apply' a new application
+     * for him should be created for the given offer and with
+     * the status of 'waiting'
      */
-    public function index(): View
+    public function apply(Request $request)
     {
+        $studentId = $request->input('studentId');
+        $offerId = $request->input('offerId');
+
+        $student = Student::find($studentId);
+        $offer = Offer::find($offerId);
+
+        $student->offers()->attach($offer, ['status' => 'waiting']);
+
+        return 'done';
+    }
+
+    /**
+     * Get a list of all applications of the given student.
+     */
+    public function applications(int $studentId)
+    {
+        $student = Student::find($studentId);
+        $offers = $student->offers;
+        return $offers;
+    }
+
+    /**
+     * Get a list of all applicants for the given offer.
+     */
+    public function applicants(int $offerId)
+    {
+        $offer = Offer::find($offerId);
+        $applicants = $offer->students;
+        return $applicants;
+    }
+
+    /**
+     * Update the given application to status 'accepted'.
+     * Reject all other applicants for the given offer.
+     */
+    public function accept(Request $request)
+    {
+        $offerId = $request->input('offerId');
+        $studentId = $request->input('studentId');
+
+        // accept the given student
+        DB::table('offer_student')
+            ->where('offer_id', $offerId)
+            ->where('student_id', $studentId)
+            ->update(['status' => 'accepted']);
         
-    }
+        // reject all other students for the same offer
+        DB::table('offer_student')
+            ->where('offer_id', $offerId)
+            ->where('student_id', '<>', $studentId)
+            ->update(['status' => 'rejected']);
 
-    /**
-     * Show all applications related to the student.
-     */
-    public function showByStudent($studentId): View
-    {
-
-    }
-
-    /**
-     * Show all applications related to the offer.
-     */
-    public function showByOffer($offerId): View
-    {
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Application $application)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Application $application)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Application $application)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Application $application)
-    {
-        //
+        return 'done';
     }
 }
