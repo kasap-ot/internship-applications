@@ -76,4 +76,52 @@ class ApplicationController extends Controller
 
         return 'done';
     }
+
+    /**
+     * Update the status of the application.
+     * From 'accepted' to 'ongoing',
+     * from 'ongoing' to 'completed'
+     */
+    public function update(Request $request)
+    {
+        $offerId = $request->input('offerId');
+        $studentId = $request->input('studentId');
+
+        $application = DB::table('offer_student')
+            ->where('offer_id', $offerId)
+            ->where('student_id', $studentId)
+            ->first();
+
+        if ($application->status === 'accepted')
+            $newStatus = 'ongoing';
+        elseif ($application->status === 'ongoing')
+            $newStatus = 'completed';
+        else
+            $newStatus = $application->status;
+        
+        DB::table('offer_student')
+            ->where('offer_id', $offerId)
+            ->where('student_id', $studentId)
+            ->update(['status' => $newStatus]);
+        
+        return 'done';
+    }
+
+    /**
+     * Cancel (delete) the whole application but 
+     * only if the status is 'waiting' or 'accepted'.
+     */
+    public function cancel(Request $request)
+    {
+        $offerId = $request->input('offerId');
+        $studentId = $request->input('studentId');
+
+        DB::table('offer_student')
+            ->where('offer_id', $offerId)
+            ->where('student_id', $studentId)
+            ->whereIn('status', ['waiting', 'accepted'])
+            ->delete();
+
+        return 'done';
+    }
 }

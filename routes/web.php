@@ -54,11 +54,12 @@ Route::get('/offers/filter', [OfferController::class, 'filter'])
 
 
 // Applications
-Route::post('/applications', [ApplicationController::class, 'apply']);
+Route::post('/applications/apply', [ApplicationController::class, 'apply']);
 Route::get('/applications/student/{studentId}', [ApplicationController::class, 'applications']);
 Route::get('/applications/offer/{offer}', [ApplicationController::class, 'applicants']);
-Route::put('/applications', [ApplicationController::class, 'accept']);
-Route::delete('/applications/{id}', [ApplicationController::class, 'cancel']);
+Route::put('/applications/accept', [ApplicationController::class, 'accept']);
+Route::put('/applications/update', [ApplicationController::class, 'update']);
+Route::delete('/applications/cancel', [ApplicationController::class, 'cancel']);
 
 
 require __DIR__.'/auth.php';

@@ -52,15 +52,27 @@
             {{ $offers->links() }}
         </div>
         
-        <form action="/applications?studentId=7&offerId=2" method="POST">
+        {{-- <form action="/applications/apply?studentId=7&offerId=2" method="POST">
             @csrf
             <x-danger-button type="submit">APPLY</x-danger-button>
         </form>
 
-        <form action="/applications?studentId=7&offerId=2" method="POST">
+        <form action="/applications/accept?studentId=7&offerId=2" method="POST">
+            @csrf
+            @method('PUT')
+            <x-danger-button type="submit">ACCEPT</x-danger-button>
+        </form>
+
+        <form action="/applications/update?studentId=8&offerId=2" method="POST">
             @csrf
             @method('PUT')
             <x-danger-button type="submit">UPDATE</x-danger-button>
+        </form> --}}
+
+        <form action="/applications/cancel?studentId=8&offerId=2" method="POST">
+            @csrf
+            @method('DELETE')
+            <x-danger-button type="submit">CANCEL</x-danger-button>
         </form>
     
     </div>
