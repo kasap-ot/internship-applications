@@ -41,12 +41,12 @@
 
         <!-- Select role -->
         <div class="mt-4">
-            <x-input-label for="role" :value="__('Select Role')" />
+            <x-input-label for="role_id" :value="__('Select Role')" />
             
-            <x-select id="role" name="role">
-                <option value="student">Student</option>
-                <option value="company">Company</option>
-                <option value="admin">Admin</option>
+            <x-select id="role_id" name="role_id">
+                <option value="{{ config('enums.STUDENT') }}">Student</option>
+                <option value="{{ config('enums.COMPANY') }}">Company</option>
+                <option value="{{ config('enums.ADMIN')   }}">Admin</option>
             </x-select>
         </div>
 
