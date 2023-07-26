@@ -42,7 +42,7 @@ Route::resource('students', StudentController::class)
 // Companies
 Route::resource('companies', CompanyController::class)
     ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
-    ->middleware(['auth', 'verified', 'is_student']);
+    ->middleware(['auth', 'verified']);
 
 
 // Offers
