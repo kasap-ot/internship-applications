@@ -12,10 +12,31 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    // Old routes
+    // Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    // Route::post('register', [RegisteredUserController::class, 'store']);
+    
+    // For all guests
+    Route::get('register-as', [RegisteredUserController::class, 'registerAs'])
+        ->name('register.as');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    // For students
+    Route::get('register-student', [RegisteredUserController::class, 'registerStudent'])
+        ->name('register.student');
+    Route::post('register-student', [RegisteredUserController::class, 'storeStudent'])
+        ->name('store.student');
+
+    // For companies
+    Route::get('register-company', [RegisteredUserController::class, 'registerCompany'])
+        ->name('register.company');
+    Route::post('register-company', [RegisteredUserController::class, 'storeCompany'])
+        ->name('store.company');
+
+    // For admins
+    Route::get('register-admin', [RegisteredUserController::class, 'registerAdmin'])
+        ->name('register.admin');
+    Route::post('register-admin', [RegisteredUserController::class, 'storeAdmin'])
+        ->name('store.admin');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
