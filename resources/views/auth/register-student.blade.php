@@ -39,7 +39,7 @@
             <x-input-error :messages="$errors->get('credits')" class="mt-2" />
         </div>
 
-        <input type="hidden" name="userable_type" id="userable_type" value="student">
+        {{-- <input type="hidden" name="userable_type" id="userable_type" value="student"> --}}
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button class="ml-4">
