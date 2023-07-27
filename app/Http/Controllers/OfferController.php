@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class OfferController extends Controller
 {
@@ -17,6 +18,8 @@ class OfferController extends Controller
      */
     public function index(): View
     {
+        Gate::authorize('is-student');
+
         $offers = Offer::latest()->paginate(self::$offersPerPage);
 
         return view('offers.index', ['offers' => $offers,]);
@@ -27,6 +30,8 @@ class OfferController extends Controller
      */
     public function filter(Request $request): View
     {
+        Gate::authorize('is-student');
+
         $query = Offer::query();
 
         if ($request->has('field'))
@@ -48,6 +53,7 @@ class OfferController extends Controller
      */
     public function create(): View
     {
+        Gate::authorize('is-company');
         return view('offers.create');
     }
 
@@ -56,6 +62,8 @@ class OfferController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        Gate::authorize('is-company');
+
         $validatedData = $request->validate([
             'field' => 'required|string|max:100',
             'salary' => 'required|integer',
@@ -84,6 +92,8 @@ class OfferController extends Controller
      */
     public function edit(Offer $offer): View
     {
+        Gate::authorize('is-company');
+
         return view('offers.edit', [
             'offer' => $offer,
         ]);
@@ -94,6 +104,8 @@ class OfferController extends Controller
      */
     public function update(Request $request, Offer $offer): RedirectResponse
     {
+        Gate::authorize('is-company');
+
         $validated = $request->validate([
             'field' => 'string|max:100',
             'salary' => 'integer',

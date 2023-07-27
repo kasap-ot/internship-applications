@@ -4,6 +4,11 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use App\Models\Student;
+use App\Models\Company;
+use App\Models\Offer;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +26,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('is-student', function (User $user) {
+            return $user->userable_type == Student::class;
+        });
+
+        Gate::define('is-company', function (User $user) {
+            return $user->userable_type == Company::class;
+        });
+
+        // for offer owner
     }
 }
