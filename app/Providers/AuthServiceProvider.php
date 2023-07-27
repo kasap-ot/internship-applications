@@ -34,6 +34,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->userable_type == Company::class;
         });
 
-        // for offer owner
+        // Checks if the user is the rightful owner of the offer
+        Gate::define('offer-owner', function (User $user, Offer $offer) {
+            return $user->userable_id == $offer->company_id;
+        });
     }
 }

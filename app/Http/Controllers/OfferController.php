@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
+use App\Models\Company;
+use App\Models\Student;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,14 +15,20 @@ class OfferController extends Controller
 {
     static $offersPerPage = 2;
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): View
     {
-        // Gate::authorize('is-student');
+        $user = auth()->user();
+        $user_type = $user->userable_type;
 
-        $offers = Offer::latest()->paginate(self::$offersPerPage);
+        if ($user_type == Student::class) {
+            $offers = Offer::latest()->paginate(self::$offersPerPage);
+        }
+        elseif ($user_type == Company::class) {
+            $company_id = $user->userable_id;
+            $offers = Offer::where('company_id', $company_id)
+                ->latest()
+                ->paginate(self::$offersPerPage);
+        }
 
         return view('offers.index', ['offers' => $offers,]);
     }
@@ -48,18 +56,12 @@ class OfferController extends Controller
         return view('offers.index', ['offers' => $offers,]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         Gate::authorize('is-company');
         return view('offers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
         Gate::authorize('is-company');
@@ -82,32 +84,23 @@ class OfferController extends Controller
             ->with('success', 'Offer created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Offer $offer)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Offer $offer): View
     {
-        Gate::authorize('is-company');
+        Gate::authorize('offer-owner', $offer);
 
         return view('offers.edit', [
             'offer' => $offer,
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Offer $offer): RedirectResponse
     {
-        Gate::authorize('is-company');
+        Gate::authorize('offer-owner', $offer);
 
         $validated = $request->validate([
             'field' => 'string|max:100',
@@ -123,11 +116,10 @@ class OfferController extends Controller
         return redirect(route('offers.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Offer $offer)
     {
+        Gate::authorize('offer-owner', $offer);
+
         $offer->delete();
 
         return redirect(route('offers.index'))->with('success', 'Offer deleted successfully');
