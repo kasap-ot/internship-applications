@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Offer extends Model
@@ -17,10 +18,16 @@ class Offer extends Model
         'dateTo',
         'description',
         'requirements',
+        'company_id',
     ];
 
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class)->as('applications');
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
     }
 }

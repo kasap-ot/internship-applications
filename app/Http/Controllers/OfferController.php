@@ -18,7 +18,7 @@ class OfferController extends Controller
      */
     public function index(): View
     {
-        Gate::authorize('is-student');
+        // Gate::authorize('is-student');
 
         $offers = Offer::latest()->paginate(self::$offersPerPage);
 
@@ -72,6 +72,9 @@ class OfferController extends Controller
             'description' => 'required|string|max:255',
             'requirements' => 'required|string|max:255',
         ]);
+
+        $user_id = auth()->user()->userable_id;
+        $validatedData['company_id'] = $user_id;
 
         Offer::create($validatedData);
 
