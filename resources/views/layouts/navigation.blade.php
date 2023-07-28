@@ -15,15 +15,17 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('students.index')" :active="request()->routeIs('students.index')">
-                        {{ __('Students') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.index')">
-                        {{ __('Companies') }}
-                    </x-nav-link>
+                    
                     <x-nav-link :href="route('offers.index')" :active="request()->routeIs('offers.index')">
-                        {{ __('Offers') }}
+                        @can('is-student') {{ __('Offers') }} @endcan
+                        @can('is-company') {{ __('My Offers') }} @endcan
                     </x-nav-link>
+                    
+                    @can('is-student')    
+                        <x-nav-link :href="route('applications')" :active="request()->routeIs('applications')">
+                            {{ __('My applications') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -76,18 +78,21 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('students.index')" :active="request()->routeIs('students.index')">
-                {{ __('Students') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.index')">
-                {{ __('Companies') }}
-            </x-responsive-nav-link>
+            
             <x-responsive-nav-link :href="route('offers.index')" :active="request()->routeIs('offers.index')">
-                {{ __('Offers') }}
+                @can('is-student') {{ __('Offers') }} @endcan
+                @can('is-company') {{ __('My Offers') }} @endcan
             </x-responsive-nav-link>
+            
+            @can('is-student')    
+                <x-responsive-nav-link :href="route('applications')" :active="request()->routeIs('applications')">
+                    {{ __('My applications') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

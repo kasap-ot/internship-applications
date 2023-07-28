@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 use App\Models\Student;
 use App\Models\Offer;
@@ -20,24 +21,28 @@ class ApplicationController extends Controller
      * for him should be created for the given offer and with
      * the status of 'waiting'
      */
-    public function apply(Request $request)
+    public function apply(int $offerId)
     {
-        $studentId = $request->input('studentId');
-        $offerId = $request->input('offerId');
+        Gate::authorize('is-student');
+
+        $studentId = auth()->user()->userable_id;
 
         $student = Student::find($studentId);
         $offer = Offer::find($offerId);
 
         $student->offers()->attach($offer, ['status' => 'waiting']);
 
-        return 'done';
+        return "student: $student <br>
+                offer: $offer";
     }
 
     /**
      * Get a list of all applications of the given student.
      */
-    public function applications(int $studentId)
+    public function applications()
     {
+        Gate::authorize('is-student');
+        $studentId = auth()->user()->userable_id;
         $student = Student::find($studentId);
         $offers = $student->offers;
         return $offers;
@@ -48,6 +53,7 @@ class ApplicationController extends Controller
      */
     public function applicants(int $offerId)
     {
+        Gate::authorize('is-company');
         $offer = Offer::find($offerId);
         $applicants = $offer->students;
         return $applicants;
@@ -57,10 +63,9 @@ class ApplicationController extends Controller
      * Update the given application to status 'accepted'.
      * Reject all other applicants for the given offer.
      */
-    public function accept(Request $request)
+    public function accept(int $offerId, int $studentId)
     {
-        $offerId = $request->input('offerId');
-        $studentId = $request->input('studentId');
+        Gate::authorize('is-company');
 
         // accept the given student
         DB::table('offer_student')
@@ -82,10 +87,9 @@ class ApplicationController extends Controller
      * From 'accepted' to 'ongoing',
      * from 'ongoing' to 'completed'
      */
-    public function update(Request $request)
+    public function update(int $offerId, int $studentId)
     {
-        $offerId = $request->input('offerId');
-        $studentId = $request->input('studentId');
+        Gate::authorize('is-company');
 
         $application = DB::table('offer_student')
             ->where('offer_id', $offerId)
@@ -111,10 +115,12 @@ class ApplicationController extends Controller
      * Cancel (delete) the whole application but 
      * only if the status is 'waiting' or 'accepted'.
      */
-    public function cancel(Request $request)
+    public function cancel(int $offerId)
     {
+        Gate::authorize('is-student');
+
         $offerId = $request->input('offerId');
-        $studentId = $request->input('studentId');
+        $studentId = auth()->user()->userable_id;
 
         DB::table('offer_student')
             ->where('offer_id', $offerId)

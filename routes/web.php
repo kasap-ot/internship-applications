@@ -54,12 +54,14 @@ Route::get('/offers/filter', [OfferController::class, 'filter'])
 
 
 // Applications
-Route::post('/applications/apply', [ApplicationController::class, 'apply']);
-Route::get('/applications/student/{studentId}', [ApplicationController::class, 'applications']);
-Route::get('/applications/offer/{offer}', [ApplicationController::class, 'applicants']);
-Route::put('/applications/accept', [ApplicationController::class, 'accept']);
-Route::put('/applications/update', [ApplicationController::class, 'update']);
-Route::delete('/applications/cancel', [ApplicationController::class, 'cancel']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/apply/{offerId}', [ApplicationController::class, 'apply'])->name('apply');
+    Route::get('/applications', [ApplicationController::class, 'applications'])->name('applications');
+    Route::get('/applicants/{offerId}', [ApplicationController::class, 'applicants'])->name('applicants');
+    Route::put('/accept/{offerId}/{studentId}', [ApplicationController::class, 'accept'])->name('accept');
+    Route::put('/update-application/{offerId}/{studentId}', [ApplicationController::class, 'update'])->name('update-application');
+    Route::delete('/cancel-application/{offerId}', [ApplicationController::class, 'cancel'])->name('cancel-application');
+});
 
 
 require __DIR__.'/auth.php';
