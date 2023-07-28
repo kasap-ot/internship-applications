@@ -21,7 +21,7 @@
             <ul class="space-y-4">
                 @foreach($offers as $offer)
                     <li class="border border-gray-300 p-4 rounded-md shadow-sm">
-                        <div class="grid grid-cols-4 gap-4">
+                        <div class="grid grid-cols-5 gap-4">
                             <div>
                                 <span class="font-bold">{{ __('Field: ') }}</span>
                                 <span>{{ $offer->field }}</span>
@@ -37,6 +37,11 @@
                             <div>
                                 <span class="font-bold">{{ __('End on: ') }}</span>
                                 <span>{{ $offer->dateTo }}</span>
+                            </div>
+                            <div>
+                                <x-button-link color="green" href="{{ route('offers.show', $offer) }}">
+                                    View offer
+                                </x-button-link>
                             </div>
                         </div>
 

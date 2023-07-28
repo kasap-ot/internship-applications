@@ -41,13 +41,13 @@ Route::resource('students', StudentController::class)
 
 // Companies
 Route::resource('companies', CompanyController::class)
-    ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
+    ->only(['index', 'store', 'create', 'edit', 'show', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 
 // Offers
 Route::resource('offers', OfferController::class)
-    ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
+    ->only(['index', 'store', 'create', 'edit', 'show', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 Route::get('/offers/filter', [OfferController::class, 'filter'])
     ->name('offers.filter');
@@ -55,7 +55,7 @@ Route::get('/offers/filter', [OfferController::class, 'filter'])
 
 // Applications
 Route::middleware(['auth'])->group(function () {
-    Route::post('/apply/{offerId}', [ApplicationController::class, 'apply'])->name('apply');
+    Route::get('/apply/{offerId}', [ApplicationController::class, 'apply'])->name('apply');
     Route::get('/applications', [ApplicationController::class, 'applications'])->name('applications');
     Route::get('/applicants/{offerId}', [ApplicationController::class, 'applicants'])->name('applicants');
     Route::put('/accept/{offerId}/{studentId}', [ApplicationController::class, 'accept'])->name('accept');

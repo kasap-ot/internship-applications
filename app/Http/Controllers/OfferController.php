@@ -84,9 +84,9 @@ class OfferController extends Controller
             ->with('success', 'Offer created successfully!');
     }
 
-    public function show(Offer $offer)
+    public function show(Offer $offer): View
     {
-        //
+        return view('offers.show', ['offer' => $offer]);
     }
 
     public function edit(Offer $offer): View
