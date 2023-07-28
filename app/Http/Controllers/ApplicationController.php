@@ -51,12 +51,13 @@ class ApplicationController extends Controller
     /**
      * Get a list of all applicants for the given offer.
      */
-    public function applicants(int $offerId)
+    public function applicants(int $offerId): View
     {
         Gate::authorize('is-company');
         $offer = Offer::find($offerId);
-        $applicants = $offer->students;
-        return $applicants;
+        $studentsPerPage = 2;
+        $applicants = $offer->students()->paginate($studentsPerPage);
+        return view('students.index', ['students' => $applicants]);
     }
 
     /**

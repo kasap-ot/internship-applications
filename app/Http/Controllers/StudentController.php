@@ -10,13 +10,13 @@ use Illuminate\View\View;
 
 class StudentController extends Controller
 {
+    static int $studentsPerPage = 2;
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $studentsPerPage = 2;
-        $students = Student::latest()->paginate($studentsPerPage);
+        $students = Student::latest()->paginate(self::$studentsPerPage);
         return view('students.index', [
             'students' => $students,
         ]);

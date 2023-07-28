@@ -55,7 +55,7 @@ Route::get('/offers/filter', [OfferController::class, 'filter'])
 
 // Applications
 Route::middleware(['auth'])->group(function () {
-    Route::get('/apply/{offerId}', [ApplicationController::class, 'apply'])->name('apply');
+    Route::post('/apply/{offerId}', [ApplicationController::class, 'apply'])->name('apply');
     Route::get('/applications', [ApplicationController::class, 'applications'])->name('applications');
     Route::get('/applicants/{offerId}', [ApplicationController::class, 'applicants'])->name('applicants');
     Route::put('/accept/{offerId}/{studentId}', [ApplicationController::class, 'accept'])->name('accept');
