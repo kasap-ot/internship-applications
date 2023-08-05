@@ -53,8 +53,8 @@ class ApplicationController extends Controller
      */
     public function applicants(int $offerId): View
     {
-        Gate::authorize('is-company');
         $offer = Offer::find($offerId);
+        Gate::authorize('offer-owner', $offer);
         $studentsPerPage = 2;
         $applicants = $offer->students()->paginate($studentsPerPage);
         return view('students.index', ['students' => $applicants]);

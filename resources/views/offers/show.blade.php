@@ -34,14 +34,20 @@
             </div>
         </div>
         <br>
-        <x-button-link color="green" href="{{ route('companies.show', $offer->company) }}">
-            View company
-        </x-button-link>
-        <br><br>
-        <x-button-link color="green" href="{{ route('apply', $offer->id) }}">
-            Apply for offer
-        </x-button-link>
+        @can('is-student')
+            <x-button-link color="green" href="{{ route('companies.show', $offer->company) }}">
+                View company
+            </x-button-link>    
+            <x-button-link color="green" href="{{ route('apply', $offer->id) }}">
+                Apply for offer
+            </x-button-link>
+        @endcan
 
-        <!-- Add any additional content or actions here -->
+        @can('is-company')
+            {{-- add "view applicants" button --}}
+            <x-button-link color="green" href="{{ route('applicants', $offer->id) }}">
+                View applicants
+            </x-button-link>
+        @endcan
     </div>
 </x-app-layout>
