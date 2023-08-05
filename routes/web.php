@@ -34,16 +34,15 @@ Route::middleware('auth')->group(function () {
 });
 
 // Students
-Route::resource('students', StudentController::class)
-    ->only(['index', 'show'])
-    ->middleware(['auth', 'verified']);
+Route::get('students/{studentId}', [StudentController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('student.show');
 
 
 // Companies
-Route::resource('companies', CompanyController::class)
-    ->only(['index', 'show'])
-    ->middleware(['auth', 'verified']);
-
+Route::get('companies/{companyId}', [CompanyController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('company.show');
 
 // Offers
 Route::resource('offers', OfferController::class)

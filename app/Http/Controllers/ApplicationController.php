@@ -68,6 +68,14 @@ class ApplicationController extends Controller
     {
         Gate::authorize('is-company');
 
+        $status = DB::table('offer_student')
+            ->where('offer_id', $offerId)
+            ->where('student_id', $studentId)
+            ->value('status');
+
+        if ($status != 'waiting')
+            return 'Cannot perform the given action.';
+
         // accept the given student
         DB::table('offer_student')
             ->where('offer_id', $offerId)
