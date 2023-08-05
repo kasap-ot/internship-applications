@@ -9,9 +9,9 @@
 
         @can('is-company')
             <div class="my-5">
-                <x-button-link color="green" href="{{ route('offers.create') }}">
-                    Create offer
-                </x-button-link>
+                <form action="{{ route('offers.create') }}" method="GET"> @csrf @method('GET')
+                    <x-primary-button>Create offer</x-primary-button>
+                </form>
             </div>
         @endcan
 
@@ -21,7 +21,7 @@
             <ul class="space-y-4">
                 @foreach($offers as $offer)
                     <li class="border border-gray-300 p-4 rounded-md shadow-sm">
-                        <div class="grid grid-cols-5 gap-4">
+                        <div class="grid grid-cols-4 gap-4">
                             <div>
                                 <span class="font-bold">{{ __('Field: ') }}</span>
                                 <span>{{ $offer->field }}</span>
@@ -38,34 +38,32 @@
                                 <span class="font-bold">{{ __('End on: ') }}</span>
                                 <span>{{ $offer->dateTo }}</span>
                             </div>
-                            <div>
-                                <x-button-link color="green" href="{{ route('offers.show', $offer) }}">
-                                    View offer
-                                </x-button-link>
-                            </div>
                         </div>
 
-                        @can('offer-owner', $offer)                           
-                            <div class="mt-4">
-                                <form class="inline" action="{{ route('offers.edit', $offer) }}" method="GET">
-                                    @csrf
-                                    @method('GET')
-                                    <x-primary-button type="submit">Edit</x-primary-button>
+                        <div class="mt-4">
+                            @can('offer-owner', $offer)                           
+                                <form class="inline" action="{{ route('offers.edit', $offer) }}" method="GET"> 
+                                    @csrf @method('GET')
+                                    <x-primary-button>Edit</x-primary-button>
                                 </form>
 
                                 <form class="inline" action="{{ route('offers.destroy', $offer) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <x-primary-button type="submit">Delete</x-primary-button>
+                                    @csrf @method('DELETE')
+                                    <x-primary-button>Delete</x-primary-button>
                                 </form>
 
-                                <form class="inline" action="{{ route('applicants', ['offerId' => $offer->id]) }}" method="POST">
-                                    @csrf
-                                    @method('GET')
-                                    <x-primary-button type="submit">View applicants</x-primary-button>
-                                </form>
-                            </div>
-                        @endcan
+                                <form class="inline" action="{{ route('applicants', $offer->id) }}" method="POST">
+                                    @csrf @method('GET')
+                                    <x-primary-button>View applicants</x-primary-button>
+                                </form>                                
+                            @endcan
+                            
+                            <form class="inline" action="{{ route('offers.show', $offer) }}" method="GET">
+                                @csrf @method('GET')
+                                <x-primary-button>View offer</x-primary-button>
+                            </form>
+                        </div>
+
                     </li>
                 @endforeach
             </ul>

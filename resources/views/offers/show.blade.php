@@ -35,19 +35,24 @@
         </div>
         <br>
         @can('is-student')
-            <x-button-link color="green" href="{{ route('companies.show', $offer->company) }}">
-                View company
-            </x-button-link>    
-            <x-button-link color="green" href="{{ route('apply', $offer->id) }}">
-                Apply for offer
-            </x-button-link>
+            <form action="{{ route('companies.show', $offer->company)}}"> @csrf @method('GET')
+                <x-primary-button>View company</x-primary-button>
+            </form>
+
+            <form action="{{ route('apply', $offer->id)}}"> @csrf @method('GET')
+                <x-primary-button>Apply for offer</x-primary-button>
+            </form>
         @endcan
 
         @can('is-company')
-            {{-- add "view applicants" button --}}
-            <x-button-link color="green" href="{{ route('applicants', $offer->id) }}">
-                View applicants
-            </x-button-link>
+            <form action="{{ route('applicants', $offer->id)}}"> @csrf @method('GET')
+                <x-primary-button>View applicants</x-primary-button>
+            </form>
         @endcan
+
+        <br>        
+        <a href="{{ back()->getTargetUrl() }}">
+            <x-primary-button>Back</x-primary-button>
+        </a>
     </div>
 </x-app-layout>
