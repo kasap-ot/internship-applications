@@ -35,13 +35,13 @@ Route::middleware('auth')->group(function () {
 
 // Students
 Route::resource('students', StudentController::class)
-    ->only(['index', 'store', 'create', 'edit', 'update', 'destroy'])
+    ->only(['index', 'show'])
     ->middleware(['auth', 'verified']);
 
 
 // Companies
 Route::resource('companies', CompanyController::class)
-    ->only(['index', 'store', 'create', 'edit', 'show', 'update', 'destroy'])
+    ->only(['index', 'show'])
     ->middleware(['auth', 'verified']);
 
 
