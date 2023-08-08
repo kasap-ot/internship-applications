@@ -64,6 +64,13 @@ class ProfileController extends Controller
 
         $user->delete();
 
+        $role = $user->userable_type;
+        
+        if ($role === Student::class)
+            Student::where('id', $user->userable_id)->delete();
+        elseif ($role === Company::class)
+            Company::where('id', $user->userable_id)->delete();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
