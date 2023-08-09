@@ -22,7 +22,9 @@ class Student extends Model
 
     public function offers(): BelongsToMany
     {
-        return $this->belongsToMany(Offer::class)->as('applications');
+        return $this->belongsToMany(Offer::class)
+            ->as('application')
+            ->withPivot('status');
     }
 
     public function user(): MorphOne

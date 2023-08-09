@@ -38,7 +38,7 @@
             <form action="{{ route('companies.show', $offer->company)}}"> @csrf @method('GET')
                 <x-primary-button>View company</x-primary-button>
             </form>
-
+            <br>
             <form action="{{ route('apply', $offer->id)}}"> @csrf @method('GET')
                 <x-primary-button>Apply for offer</x-primary-button>
             </form>

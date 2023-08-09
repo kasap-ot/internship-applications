@@ -23,7 +23,9 @@ class Offer extends Model
 
     public function students(): BelongsToMany
     {
-        return $this->belongsToMany(Student::class)->as('applications');
+        return $this->belongsToMany(Student::class)
+            ->as('application')
+            ->withPivot('status');
     }
 
     public function company(): BelongsTo

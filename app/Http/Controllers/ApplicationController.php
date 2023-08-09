@@ -32,8 +32,7 @@ class ApplicationController extends Controller
 
         $student->offers()->attach($offer, ['status' => 'waiting']);
 
-        return "student: $student <br>
-                offer: $offer";
+        return redirect()->route('applications');
     }
 
     /**
@@ -45,7 +44,8 @@ class ApplicationController extends Controller
         $studentId = auth()->user()->userable_id;
         $student = Student::find($studentId);
         $offers = $student->offers;
-        return $offers;
+        // return $offers;
+        return view('applications.index', ['offers' => $offers]);
     }
 
     /**

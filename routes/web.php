@@ -42,7 +42,7 @@ Route::get('students/{studentId}', [StudentController::class, 'show'])
 // Companies
 Route::get('companies/{companyId}', [CompanyController::class, 'show'])
     ->middleware(['auth', 'verified'])
-    ->name('company.show');
+    ->name('companies.show');
 
 // Offers
 Route::resource('offers', OfferController::class)
