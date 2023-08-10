@@ -30,19 +30,19 @@
 
             <div class="mt-4">
                 <x-input-label for="description">Description</x-input-label>
-                <x-form-input type="text" name="description" value="{{ old('description', $offer->description) }}" />
+                <x-form-textarea name="description" value="{{ old('description', $offer->description) }}" />
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
 
             <div class="mt-4">
                 <x-input-label for="requirements">Requirements</x-input-label>
-                <x-form-input type="text" name="requirements" value="{{ old('requirements', $offer->requirements) }}" />
+                <x-form-textarea name="requirements" value="{{ old('requirements', $offer->requirements) }}" />
                 <x-input-error :messages="$errors->get('requirements')" class="mt-2" />
             </div>
 
             <div class="mt-4 space-x-2">
                 <x-primary-button>{{ __('Save') }}</x-primary-button>
-                <a href="{{ route('offers.index') }}">{{ __('Cancel') }}</a>
+                <a href="{{ route('offers.show', $offer) }}">{{ __('Cancel') }}</a>
             </div>
         </form>
     </div>

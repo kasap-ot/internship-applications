@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
         <h2 class="text-2xl font-bold mb-4">{{ __('Student List') }}</h2>
 
         @if($students->isEmpty())
@@ -11,6 +11,10 @@
 
                         <div class="grid grid-cols-3 gap-4">
                             <div>
+                                <div>
+                                    <span class="font-bold">{{ __('Student: ') }}</span>
+                                    <span>{{ $student->user->name }}</span>
+                                </div>
                                 <div>
                                     <span class="font-bold">{{ __('GPA: ') }}</span>
                                     <span>{{ $student->gpa }}</span>
@@ -50,18 +54,14 @@
                                 </form>
                             </div>
                         </div>
-
-                        
                     </li>
                 @endforeach
             </ul>
         @endif
-        <div class="mt-6 p-4">
-            {{ $students->links() }}
-        </div>
-        
-        <a href="{{ back()->getTargetUrl() }}">
+
+        <br>
+        <a href="{{ url()->previous() }}">
             <x-primary-button>Back</x-primary-button>
-        </a>
+        </a>  
     </div>
 </x-app-layout>

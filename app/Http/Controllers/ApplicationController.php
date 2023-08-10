@@ -23,15 +23,13 @@ class ApplicationController extends Controller
      */
     public function apply(int $offerId)
     {
-        Gate::authorize('is-student');
-
         $studentId = auth()->user()->userable_id;
-
         $student = Student::find($studentId);
         $offer = Offer::find($offerId);
-
+        
+        Gate::authorize('can-apply', $offer);
+        
         $student->offers()->attach($offer, ['status' => 'waiting']);
-
         return redirect()->route('applications');
     }
 
@@ -44,7 +42,6 @@ class ApplicationController extends Controller
         $studentId = auth()->user()->userable_id;
         $student = Student::find($studentId);
         $offers = $student->offers;
-        // return $offers;
         return view('applications.index', ['offers' => $offers]);
     }
 
@@ -56,7 +53,7 @@ class ApplicationController extends Controller
         $offer = Offer::find($offerId);
         Gate::authorize('offer-owner', $offer);
         $studentsPerPage = 2;
-        $applicants = $offer->students()->paginate($studentsPerPage);
+        $applicants = $offer->students()->get();
         return view('students.index', ['students' => $applicants]);
     }
 
@@ -88,7 +85,7 @@ class ApplicationController extends Controller
             ->where('student_id', '<>', $studentId)
             ->update(['status' => 'rejected']);
 
-        return 'done';
+        return redirect()->route('applicants', $offerId);
     }
 
     /**
@@ -128,7 +125,6 @@ class ApplicationController extends Controller
     {
         Gate::authorize('is-student');
 
-        $offerId = $request->input('offerId');
         $studentId = auth()->user()->userable_id;
 
         DB::table('offer_student')
@@ -137,6 +133,6 @@ class ApplicationController extends Controller
             ->whereIn('status', ['waiting', 'accepted'])
             ->delete();
 
-        return 'done';
+        return redirect()->route('applications');
     }
 }

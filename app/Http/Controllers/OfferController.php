@@ -21,13 +21,13 @@ class OfferController extends Controller
         $user_type = $user->userable_type;
 
         if ($user_type == Student::class) {
-            $offers = Offer::latest()->paginate(self::$offersPerPage);
+            $offers = Offer::latest()->get();
         }
         elseif ($user_type == Company::class) {
             $company_id = $user->userable_id;
             $offers = Offer::where('company_id', $company_id)
                 ->latest()
-                ->paginate(self::$offersPerPage);
+                ->get();
         }
 
         return view('offers.index', ['offers' => $offers,]);
@@ -51,7 +51,7 @@ class OfferController extends Controller
         if ($request->has('maxSalary'))
             $query->where('salary', '<=', $request->input('maxSalary'));
 
-        $offers = $query->paginate(self::$offersPerPage);
+        $offers = $query->get();
 
         return view('offers.index', ['offers' => $offers,]);
     }

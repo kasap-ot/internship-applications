@@ -29,39 +29,15 @@
                                 {{ $offer->application->status }}
                             </div>
                             <div class="flex justify-center">
-                                <x-primary-button>Cancel</x-primary-button>
+                                <form class="inline" action="{{ route('cancel-application', $offer->id) }}" method="POST">
+                                    @csrf @method('DELETE')
+                                    <x-primary-button>Cancel</x-primary-button>
+                                </form>
                             </div>
                         </div>
-
-                        {{-- <div class="mt-4">
-                            @can('offer-owner', $offer)                           
-                                <form class="inline" action="{{ route('offers.edit', $offer) }}" method="GET"> 
-                                    @csrf @method('GET')
-                                    <x-primary-button>Edit</x-primary-button>
-                                </form>
-
-                                <form class="inline" action="{{ route('offers.destroy', $offer) }}" method="POST">
-                                    @csrf @method('DELETE')
-                                    <x-primary-button>Delete</x-primary-button>
-                                </form>
-
-                                <form class="inline" action="{{ route('applicants', $offer->id) }}" method="POST">
-                                    @csrf @method('GET')
-                                    <x-primary-button>View applicants</x-primary-button>
-                                </form>                                
-                            @endcan
-                            
-                            <form class="inline" action="{{ route('offers.show', $offer) }}" method="GET">
-                                @csrf @method('GET')
-                                <x-primary-button>View offer</x-primary-button>
-                            </form>
-                        </div> --}}
                     </li>
                 @endforeach
             </ul>
         @endif 
-        {{-- <div class="mt-6 p-4">
-            {{ $offers->links() }}
-        </div>    --}}
     </div>
 </x-app-layout>

@@ -18,16 +18,17 @@ class CompanyController extends Controller
     public function index(): View
     {
         Gate::authorize('is-student');
-        $companies = Company::latest()->paginate(self::$companiesPerPage);
+        $companies = Company::latest()->get();
         return view('companies.index', ['companies' => $companies,]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Company $company)
+    public function show(int $companyId)
     {
         Gate::authorize('is-student');
-        return $company;
+        $company = Company::find($companyId);
+        return view('companies.show', ['company' => $company]);
     }
 }

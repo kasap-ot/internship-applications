@@ -1,6 +1,6 @@
 <x-app-layout>
     <!-- Your view content here -->
-    <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
         <h2 class="text-2xl font-bold mb-4">{{ __('Offer Details') }}</h2>
 
         <div class="border border-gray-300 p-4 rounded-md shadow-sm">
@@ -35,24 +35,32 @@
         </div>
         <br>
         @can('is-student')
-            <form action="{{ route('companies.show', $offer->company)}}"> @csrf @method('GET')
+            <form class="inline mr-2" action="{{ route('companies.show', $offer->company->id)}}"> @csrf @method('GET')
                 <x-primary-button>View company</x-primary-button>
             </form>
-            <br>
-            <form action="{{ route('apply', $offer->id)}}"> @csrf @method('GET')
-                <x-primary-button>Apply for offer</x-primary-button>
-            </form>
+            @can('can-apply', $offer)
+                <form class="inline" action="{{ route('apply', $offer->id)}}"> @csrf @method('GET')
+                    <x-primary-button>Apply for offer</x-primary-button>
+                </form>
+            @endcan
         @endcan
 
-        @can('is-company')
-            <form action="{{ route('applicants', $offer->id)}}"> @csrf @method('GET')
-                <x-primary-button>View applicants</x-primary-button>
-            </form>
+        @can('offer-owner', $offer)   
+            {{-- <div class="grid grid-cols-3 gap-4"> --}}
+                <form class="inline mr-1" action="{{ route('applicants', $offer->id)}}"> @csrf @method('GET')
+                    <x-primary-button>Applicants</x-primary-button>
+                </form>
+                <form class="inline mx-1" action="{{ route('offers.edit', $offer) }}" method="GET"> 
+                    @csrf @method('GET')
+                    <x-primary-button>Edit</x-primary-button>
+                </form>
+                <form class="inline ml-1" action="{{ route('offers.destroy', $offer) }}" method="POST">
+                    @csrf @method('DELETE')
+                    <x-primary-button>Delete</x-primary-button>
+                </form>
+            {{-- </div> --}}
         @endcan
 
         <br>        
-        <a href="{{ back()->getTargetUrl() }}">
-            <x-primary-button>Back</x-primary-button>
-        </a>
     </div>
 </x-app-layout>
