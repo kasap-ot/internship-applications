@@ -7,7 +7,17 @@
         @else
             <ul class="space-y-4">
                 @foreach($offers as $offer)
-                    <li class="border border-gray-300 p-4 rounded-md shadow-sm">
+                    @php
+                        $status = $offer->application->status;
+                        switch ($status) {
+                            case 'waiting':     $color = 'yellow'; break;
+                            case 'accepted':    $color = 'green';   break;
+                            case 'rejected':    $color = 'red';    break;
+                            case 'ongoing':     $color = 'blue';   break;
+                            case 'completed':   $color = 'blue';   break;
+                        }
+                    @endphp
+                    <li class="border border-gray-300 p-4 rounded-md shadow-sm bg-{{$color}}-100">
                         <div class="grid grid-cols-6 gap-4">
                             <div>
                                 <span class="font-bold">{{ __('Field: ') }}</span>
@@ -35,6 +45,9 @@
                                 </form>
                             </div>
                         </div>
+                        @if (session('message'))
+                            <div>{{ session('message') }}</div>
+                        @endif
                     </li>
                 @endforeach
             </ul>

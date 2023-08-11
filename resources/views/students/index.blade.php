@@ -7,7 +7,23 @@
         @else
             <ul class="space-y-4">
                 @foreach($students as $student)
-                    <li class="border border-gray-300 p-4 rounded-md shadow-sm">
+                    @php
+                        $offerId = request()->route('offerId');
+                        $status = DB::table('offer_student')
+                            ->where('offer_id', $offerId)
+                            ->where('student_id', $student->id)
+                            ->value('status');
+                        switch ($status) {
+                            case 'waiting':     $color = 'yellow'; break;
+                            case 'accepted':    $color = 'green'; break;
+                            case 'rejected':    $color = 'red'; break;
+                            case 'ongoing':     $color = 'blue'; break;
+                            case 'completed':   $color = 'blue'; break;
+                            default:            $color = 'gray'; break;
+                        }
+                    @endphp
+
+                    <li class="border border-gray-300 p-4 rounded-md shadow-sm bg-{{$color}}-100">
 
                         <div class="grid grid-cols-3 gap-4">
                             <div>
@@ -37,23 +53,21 @@
                                 </div>
                             </div>
 
-                            @php
-                                $offerId = request()->route('offerId');
-                                $status = DB::table('offer_student')
-                                    ->where('offer_id', $offerId)
-                                    ->where('student_id', $student->id)
-                                    ->value('status');
-                            @endphp
-
                             <div class="flex justify-center">{{ $status }}</div>
                             
                             <div class="flex justify-end">
+                                @if ($status == 'waiting')                                    
                                 <form action="{{ route('accept', ['offerId' => $offerId, 'studentId' => $student->id]) }}" method="POST">
                                     @csrf @method('PUT')
                                     <x-primary-button>Accept applicant</x-primary-button>
                                 </form>
+                                @endif
                             </div>
                         </div>
+                        
+                        @if (session('message') && session('studentId') == $student->id)
+                            <div class="flex justify-end">{{ session('message') }}</div>
+                        @endif
                     </li>
                 @endforeach
             </ul>

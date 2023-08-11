@@ -28,9 +28,22 @@ class ApplicationController extends Controller
         $offer = Offer::find($offerId);
         
         Gate::authorize('can-apply', $offer);
+
+        # If there is already an accepted / ongoing / completed 
+        # student for the offer, return with an error message.
         
-        $student->offers()->attach($offer, ['status' => 'waiting']);
-        return redirect()->route('applications');
+        $offerNotAvailable = DB::table('offer_student')
+            ->where('offer_id', $offerId)
+            ->whereIn('status', ['accepted', 'ongoing', 'completed'])
+            ->exists();
+
+        if ($offerNotAvailable)
+            // return 'The offer is not available'; 
+            return back()->with(['message' => 'The offer is not available.']);
+        else {
+            $student->offers()->attach($offer, ['status' => 'waiting']);
+            return redirect()->route('applications');
+        }
     }
 
     /**
@@ -70,8 +83,12 @@ class ApplicationController extends Controller
             ->where('student_id', $studentId)
             ->value('status');
 
-        if ($status != 'waiting')
-            return 'Cannot perform the given action.';
+        if ($status != 'waiting') {
+            return back()->with([
+                'message' => "Cannot accept student with status $status",
+                'studentId' => $studentId,
+            ]);
+        }
 
         // accept the given student
         DB::table('offer_student')
@@ -120,6 +137,9 @@ class ApplicationController extends Controller
     /**
      * Cancel (delete) the whole application but 
      * only if the status is 'waiting' or 'accepted'.
+     * If there is such an entry to delete and deletion
+     * is successful, reset all other applications
+     * to status 'waiting'.
      */
     public function cancel(int $offerId)
     {
@@ -127,12 +147,24 @@ class ApplicationController extends Controller
 
         $studentId = auth()->user()->userable_id;
 
-        DB::table('offer_student')
+        $cancelledApplications = DB::table('offer_student')
             ->where('offer_id', $offerId)
             ->where('student_id', $studentId)
             ->whereIn('status', ['waiting', 'accepted'])
             ->delete();
-
-        return redirect()->route('applications');
+        
+        # If application is deleted successfully
+        # reset all other applications for offer
+        
+        if ($cancelledApplications == 1) {
+            DB::table('offer_student')
+            ->where('offer_id', $offerId)
+            ->update(['status' => 'waiting']);
+            return redirect()->route('applications');
+        }
+        else {
+            return back()
+            ->with('message', 'This is not a valid request.');
+        }
     }
 }

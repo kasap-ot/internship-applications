@@ -43,6 +43,10 @@
                     <x-primary-button>Apply for offer</x-primary-button>
                 </form>
             @endcan
+
+            @if (session('message'))
+                <span>{{ session('message') }}</span>
+            @endif
         @endcan
 
         @can('offer-owner', $offer)   
