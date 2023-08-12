@@ -4,6 +4,11 @@
         <h2 class="text-2xl font-bold mb-4">{{ __('Company Details') }}</h2>
 
         <div class="border border-gray-300 p-4 rounded-md shadow-sm mb-4">
+            {{-- Logo Image --}}
+            <div class="mb-4">
+                <img src="/storage/logoImages/{{$company->logoImage}}" alt="">
+            </div>
+            
             {{-- Name --}}
             <div class="mb-4">
                 <span class="font-bold">{{ __('Name: ') }}</span>

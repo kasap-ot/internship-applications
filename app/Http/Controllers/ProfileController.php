@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use App\Models\Student;
 use App\Models\Company;
@@ -43,6 +44,13 @@ class ProfileController extends Controller
             $student->update($validatedData);
         } elseif ($user->userable_type == Company::class) {
             $company = $user->userable;
+            if ($request->hasFile('logoImage')) {
+                $file = $request->file('logoImage');
+                $originalFileName = $file->getClientOriginalName();
+                $newFileName = time() . '_' . $originalFileName;
+                $path = $file->storeAs('public/logoImages', $newFileName);
+                $company->logoImage = $newFileName;
+            }
             $company->update($validatedData);
         }
 
@@ -68,8 +76,13 @@ class ProfileController extends Controller
         
         if ($role === Student::class)
             Student::where('id', $user->userable_id)->delete();
-        elseif ($role === Company::class)
-            Company::where('id', $user->userable_id)->delete();
+        elseif ($role === Company::class) {
+            $company = Company::findOrFail($user->userable_id);
+            $logoImage = $company->logoImage;
+            $company->delete();
+            if ($logoImage != 'noImage.jpg')
+                Storage::delete('public/logoImages/' . $company->logoImage);
+        }
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

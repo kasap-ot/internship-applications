@@ -38,6 +38,7 @@ class ProfileUpdateRequest extends FormRequest
             $rules['description'] = 'required|string|max:255';
             $rules['website'] = 'required|string|max:100';
             $rules['address'] = 'required|string|max:100';
+            $rules['logoImage'] = 'image|max:1999|nullable';
         }
 
         return $rules;
