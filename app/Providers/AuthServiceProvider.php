@@ -34,6 +34,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->userable_type == Company::class;
         });
 
+        Gate::define('is-admin', function (User $user) {
+            return $user->userable_type == 'admin';
+        });
+
         Gate::define('offer-owner', function (User $user, Offer $offer) {
             return $user->userable_id == $offer->company_id;
         });

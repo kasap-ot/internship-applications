@@ -6,6 +6,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,5 +63,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/cancel-application/{offerId}', [ApplicationController::class, 'cancel'])->name('cancel-application');
 });
 
+// User verification
+Route::get('/user-requests', [AdminController::class, 'userRequests'])->middleware(['auth'])->name('user-requests');
+Route::put('/verify-user', [AdminController::class, 'verifyUser'])->middleware(['auth'])->name('verify-user');
+Route::put('/reject-user', [AdminController::class, 'rejectUser'])->middleware(['auth'])->name('reject-user');
 
 require __DIR__.'/auth.php';

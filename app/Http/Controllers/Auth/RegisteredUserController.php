@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
     }
 
     public function registerAdmin(): View {
-        abort(Response::HTTP_NOT_IMPLEMENTED, 'Not implemented');
+        return view('auth.register-admin');
     }
 
     private function validateUserFields(Request $request): void {
@@ -106,6 +106,16 @@ class RegisteredUserController extends Controller
 
     public function storeAdmin(Request $request): RedirectResponse
     {
-        abort(Response::HTTP_NOT_IMPLEMENTED, 'Not implemented');
+        $this->validateUserFields($request);
+        
+        $dummyUserReferenceId = 0;
+        $user = $this->storeUser($request, $dummyUserReferenceId, 'admin');
+        event(new Registered($user));
+        Auth::login($user);
+        
+        // Because this is an admin-user, he is verified by default
+        User::where('id', $user->id)->update(['verified' => true]);
+        
+        return redirect(RouteServiceProvider::HOME);
     }
 }

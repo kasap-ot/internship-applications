@@ -26,6 +26,12 @@
                             {{ __('My applications') }}
                         </x-nav-link>
                     @endcan
+
+                    @can('is-admin')
+                        <x-nav-link :href="route('user-requests')" :active="request()->routeIs('user-requests')">
+                            {{ __('User requests') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
