@@ -31,26 +31,10 @@
                                     <span class="font-bold">{{ __('Student: ') }}</span>
                                     <span>{{ $student->user->name }}</span>
                                 </div>
-                                <div>
-                                    <span class="font-bold">{{ __('GPA: ') }}</span>
-                                    <span>{{ $student->gpa }}</span>
-                                </div>
-                                <div>
-                                    <span class="font-bold">{{ __('University: ') }}</span>
-                                    <span>{{ $student->university }}</span>
-                                </div>
-                                <div>
-                                    <span class="font-bold">{{ __('Major: ') }}</span>
-                                    <span>{{ $student->major }}</span>
-                                </div>
-                                <div>
-                                    <span class="font-bold">{{ __('Date Enrolled: ') }}</span>
-                                    <span>{{ $student->dateEnrolled }}</span>
-                                </div>
-                                <div>
-                                    <span class="font-bold">{{ __('Credits: ') }}</span>
-                                    <span>{{ $student->credits }}</span>
-                                </div>
+
+                                <a href="{{route('student.show', $student)}}">
+                                    <x-primary-button class="mt-2">View Profile</x-primary-button>
+                                </a>
                             </div>
 
                             <div class="flex justify-center">{{ $status }}</div>
@@ -74,7 +58,7 @@
         @endif
 
         <br>
-        <a href="{{ url()->previous() }}">
+        <a href="{{ route('offers.show', $offerId) }}">
             <x-primary-button>Back</x-primary-button>
         </a>  
     </div>

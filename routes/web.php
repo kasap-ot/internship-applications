@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Students
-Route::get('students/{studentId}', [StudentController::class, 'show'])
+Route::get('students/{student}', [StudentController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('student.show');
 
