@@ -1,5 +1,4 @@
 <x-app-layout>
-    <!-- Your view content here -->
     <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
         <h2 class="text-2xl font-bold mb-4">{{ __('Offer Details') }}</h2>
 
@@ -50,7 +49,6 @@
         @endcan
 
         @can('offer-owner', $offer)   
-            {{-- <div class="grid grid-cols-3 gap-4"> --}}
                 <form class="inline mr-1" action="{{ route('applicants', $offer->id)}}"> @csrf @method('GET')
                     <x-primary-button>Applicants</x-primary-button>
                 </form>
@@ -62,7 +60,6 @@
                     @csrf @method('DELETE')
                     <x-primary-button>Delete</x-primary-button>
                 </form>
-            {{-- </div> --}}
         @endcan
 
         <br>        
