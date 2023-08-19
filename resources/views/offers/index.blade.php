@@ -20,7 +20,7 @@
         @else
             <ul class="space-y-4">
                 @foreach($offers as $offer)
-                    <li class="border border-gray-300 p-4 rounded-md shadow-sm bg-slate-200">
+                    <li class="border border-gray-300 p-4 rounded-md shadow-sm bg-white">
                         <div class="grid grid-cols-5 gap-4">
                             <div>
                                 <span class="font-bold">{{ __('Field: ') }}</span>

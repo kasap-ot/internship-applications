@@ -2,7 +2,7 @@
     <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
         <h2 class="text-2xl font-bold mb-4">{{ __('Offer Details') }}</h2>
 
-        <div class="border border-gray-300 p-4 rounded-md shadow-sm">
+        <div class="border border-gray-300 p-4 rounded-md shadow-sm bg-white">
             <div class="mb-4">
                 <span class="font-bold">{{ __('Field: ') }}</span>
                 <span>{{ $offer->field }}</span>

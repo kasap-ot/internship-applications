@@ -12,7 +12,7 @@
 
         @php
             $headingStyles = "mt-4 border border-gray-300 p-4 rounded-md shadow-sm flex justify-center text-lg font-bold bg-slate-200";
-            $segmentStyles = "border border-gray-300 p-4 rounded-md shadow-sm";
+            $segmentStyles = "border border-gray-300 p-4 rounded-md shadow-sm bg-white";
         @endphp
 
         <div class="{{$headingStyles}}">

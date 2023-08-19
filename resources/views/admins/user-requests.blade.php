@@ -32,18 +32,6 @@
                                     <x-primary-button>Reject</x-primary-button>
                                 </form>
                             </div>
-
-                            {{--
-                            <div class="flex justify-center">
-                                {{ $offer->application->status }}
-                            </div>
-                            <div class="flex justify-center">
-                                <form class="inline" action="{{ route('cancel-application', $offer->id) }}" method="POST">
-                                    @csrf @method('DELETE')
-                                    <x-primary-button>Cancel</x-primary-button>
-                                </form>
-                            </div> 
-                            --}}
                         </div>
                     </li>
                 @endforeach

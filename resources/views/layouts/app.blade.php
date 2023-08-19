@@ -13,9 +13,18 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            #main-div {
+                background-image: url('/storage/background-image.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100" id="main-div">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
