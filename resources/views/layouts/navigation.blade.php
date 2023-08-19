@@ -27,6 +27,10 @@
                         <x-nav-link :href="route('user-requests')" :active="request()->routeIs('user-requests')">
                             {{ __('User requests') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('verified-users')" :active="request()->routeIs('verified-users')">
+                            {{ __('Verified users') }}
+                        </x-nav-link>
                     @endcan
                 </div>
             </div>

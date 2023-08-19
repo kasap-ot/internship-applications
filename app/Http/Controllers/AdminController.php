@@ -33,6 +33,13 @@ class AdminController extends Controller
         $user->delete();
         return redirect()->route('user-requests');
     }
+
+    public function verifiedUsers(): View
+    {
+        Gate::authorize('is-admin');
+        $verifiedUsers = User::where('verified', true)->get();        
+        return view('admins.verified-users', ['verifiedUsers' => $verifiedUsers]);
+    }
 }
 
 ?>
