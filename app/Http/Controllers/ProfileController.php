@@ -25,6 +25,14 @@ class ProfileController extends Controller
     }
 
     /**
+     * Display a view-only perspective on the profile
+     */
+    public function show(): View
+    {
+        return view('profile.show');
+    }
+
+    /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse

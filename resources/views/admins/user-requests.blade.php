@@ -19,7 +19,11 @@
                             <div>{{ $user->userable_type }}</div>
                             
                             {{-- view profile --}}
-                            <div>view profile</div>
+                            <div>
+                                <a href="{{route('profile.show', $user->id)}}">
+                                    <x-primary-button>View profile</x-primary-button>
+                                </a>
+                            </div>
 
                             {{-- aprove / reject --}}
                             <div>
