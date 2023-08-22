@@ -14,16 +14,16 @@
                             ->where('student_id', $student->id)
                             ->value('status');
                         switch ($status) {
-                            case 'waiting':     $color = 'yellow'; break;
-                            case 'accepted':    $color = 'green'; break;
-                            case 'rejected':    $color = 'red'; break;
-                            case 'ongoing':     $color = 'blue'; break;
-                            case 'completed':   $color = 'blue'; break;
-                            default:            $color = 'gray'; break;
+                            case 'waiting':   $liElementStyle = "border border-gray-300 p-4 rounded-md shadow-sm bg-yellow-100"; break;
+                            case 'accepted':  $liElementStyle = "border border-gray-300 p-4 rounded-md shadow-sm bg-green-100"; break;
+                            case 'rejected':  $liElementStyle = "border border-gray-300 p-4 rounded-md shadow-sm bg-red-100"; break;
+                            case 'ongoing':   $liElementStyle = "border border-gray-300 p-4 rounded-md shadow-sm bg-blue-100"; break;
+                            case 'completed': $liElementStyle = "border border-gray-300 p-4 rounded-md shadow-sm bg-blue-100"; break;
+                            default:          $liElementStyle = "border border-gray-300 p-4 rounded-md shadow-sm bg-gray-100"; break;
                         }
                     @endphp
 
-                    <li class="border border-gray-300 p-4 rounded-md shadow-sm bg-{{$color}}-100">
+                    <li class="{{$liElementStyle}}">
 
                         <div class="grid grid-cols-3 gap-4">
                             <div>
