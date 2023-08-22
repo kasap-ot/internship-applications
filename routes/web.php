@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,14 @@ Route::middleware('auth')->group(function () {
 });
 
 // Students
-Route::get('students/{student}', [StudentController::class, 'show'])
-    ->middleware(['auth', 'verified'])
-    ->name('student.show');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/students/{student}', [StudentController::class, 'show'])->name('student.show');
+    Route::get('/experience-create', [ExperienceController::class, 'create'])->name('experience.create');
+    Route::post('/experience', [ExperienceController::class, 'store'])->name('experience.store');
+    Route::put('/experience/{experienceId}', [ExperienceController::class, 'update'])->name('experience.update');
+    Route::delete('/experience/{experienceId}', [ExperienceController::class, 'destroy'])->name('experience.destroy');
+    // experience.edit
+});
 
 
 // Companies

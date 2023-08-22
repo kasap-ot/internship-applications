@@ -31,4 +31,9 @@ class Student extends Model
     {
         return $this->morphOne(User::class, 'userable');
     }
+
+    public function experiences(): HasMany
+    {
+        return $this->hasMany(Experience::class);
+    }
 }
