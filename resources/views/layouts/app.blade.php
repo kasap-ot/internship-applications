@@ -14,17 +14,17 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <style>
+        {{-- <style>
             #main-div {
                 background-image: url('/storage/background-image.jpg');
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
             }
-        </style>
+        </style> --}}
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100" id="main-div">
+        <div class="min-h-screen bg-sky-200" id="main-div">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
