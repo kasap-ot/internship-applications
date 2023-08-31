@@ -24,10 +24,10 @@ class ExperienceController extends Controller
         $validatedData = $request->validate([
             'position' => 'required|string|max:100',
             'fromDate' => 'required|date',
-            'dateFrom' => 'required|date|after:fromDate',
+            'toDate' => 'required|date|after:fromDate',
             'description' => 'required|string',
         ]);
-
+        
         $studentId = auth()->user()->userable_id;
         $validatedData['student_id'] = $studentId;
 
