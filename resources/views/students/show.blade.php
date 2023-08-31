@@ -19,26 +19,34 @@
             Academic Profile
         </div>
 
-        <div class="{{$segmentStyles}}">            
-            <div class="mb-4">
-                <span class="font-bold">{{ __('GPA: ') }}</span>
-                <span>{{ $student->gpa }}</span>
-            </div>
-            <div class="mb-4">
-                <span class="font-bold">{{ __('University: ') }}</span>
-                <span>{{ $student->university }}</span>
-            </div>
-            <div class="mb-4">
-                <span class="font-bold">{{ __('Major: ') }}</span>
-                <span>{{ $student->major }}</span>
-            </div>
-            <div class="mb-4">
-                <span class="font-bold">{{ __('Date enrolled: ') }}</span>
-                <span>{{ $student->dateEnrolled }}</span>
-            </div>
-            <div class="mb-4">
-                <span class="font-bold">{{ __('Credits: ') }}</span>
-                <span>{{ $student->credits }}</span>
+        <div class="{{$segmentStyles}}">
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="ml-10">
+                    <div class="mb-4">
+                        <span class="font-bold">{{ __('GPA: ') }}</span>
+                        <span>{{ $student->gpa }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="font-bold">{{ __('University: ') }}</span>
+                        <span>{{ $student->university }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="font-bold">{{ __('Major: ') }}</span>
+                        <span>{{ $student->major }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="font-bold">{{ __('Date enrolled: ') }}</span>
+                        <span>{{ $student->dateEnrolled }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="font-bold">{{ __('Credits: ') }}</span>
+                        <span>{{ $student->credits }}</span>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <img src="/storage/logoImages/noImage.jpg" alt="" class="max-w-full max-h-48">
+                </div>
             </div>
         </div>
 
@@ -46,50 +54,17 @@
             Work experience
         </div>
         <div class="{{$segmentStyles}}">
-            Work experience items <br>
-            Work experience items <br>
-            Work experience items <br>
-            Work experience items <br>
-            Work experience items <br>
-            Work experience items <br>
+            @foreach ($student->experiences as $experience)
+                <div class="my-6">
+                    <div class="mb-2 font-bold">
+                        <span>{{$experience->position}}</span>
+                        <span>({{$experience->fromDate}}, {{$experience->toDate}})</span>
+                    </div>
+                    <div>{{$experience->description}}</div>
+                </div>
+            @endforeach
         </div>
 
-        <div class="{{$headingStyles}}">
-            Skills
-        </div>
-        <div class="{{$segmentStyles}}">
-            Skill items <br>
-            Skill items <br>
-            Skill items <br>
-            Skill items <br>
-            Skill items <br>
-            Skill items <br>
-        </div>
-
-        <div class="{{$headingStyles}}">
-            Languages
-        </div>
-        <div class="{{$segmentStyles}}">
-            Language items <br>
-            Language items <br>
-            Language items <br>
-            Language items <br>
-            Language items <br>
-            Language items <br>
-        </div>
-
-        <div class="{{$headingStyles}}">
-            Hobbies
-        </div>
-        <div class="{{$segmentStyles}}">
-            Hobby items <br>
-            Hobby items <br>
-            Hobby items <br>
-            Hobby items <br>
-            Hobby items <br>
-            Hobby items <br>
-            Hobby items <br>
-            Hobby items <br>
-        </div>
+        <x-primary-button class="mt-4">Download certifications</x-primary-button>
     </div>
 </x-app-layout>
