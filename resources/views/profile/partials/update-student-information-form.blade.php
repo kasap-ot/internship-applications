@@ -121,7 +121,10 @@
                     <div>{{$experience->description}}</div>
                 </div>
 
-                <form action="{{route('experience.destroy')}}"></form>
+                <form action="{{route('experience.destroy', $experience->id)}}" method="POST">
+                @csrf @method('DELETE')
+                    <x-primary-button>Delete item</x-primary-button>
+                </form>
             @endforeach
         </header>
     </div>

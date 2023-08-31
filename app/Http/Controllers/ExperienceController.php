@@ -14,12 +14,12 @@ class ExperienceController extends Controller
      * ADD AUTHORIZATION FOR THE THIS CONTROLLER!
      */
 
-    public function create()
+    public function create(): View
     {
         return view('experiences.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             'position' => 'required|string|max:100',
@@ -48,8 +48,11 @@ class ExperienceController extends Controller
 
     }
 
-    public function destroy(Experience $experience)
+    public function destroy(int $experienceId)
     {
-
+        Experience::destroy($experienceId);
+        return redirect()
+            ->route('profile.edit')
+            ->with('message', 'Experience item deleted successfully');
     }
 }
