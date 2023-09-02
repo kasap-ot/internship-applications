@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Certification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -25,8 +26,30 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show(Student $student): View
     {
         return view('students.show', ['student' => $student]);
+    }
+
+    public function upload(Request $request)//: RedirectResponse
+    {
+        $validatedData = $request->validate([
+            'certification' => 'required|file|mimes:pdf|max:1999',
+            'studentId' => 'required|integer|min:1',
+        ]);
+
+        $file = $request->file('certification');
+        $originalFileName = $file->getClientOriginalName();
+        $newFileName = time() . '_' . $originalFileName;
+        
+        $dataToStore = [
+            'name' => $newFileName,
+            'student_id' => $validatedData['studentId'],
+        ];
+
+        $path = $file->storeAs('public/certifications', $newFileName);
+        Certification::create($dataToStore);
+
+        return 'upload done';
     }
 }
