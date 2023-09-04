@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use App\Models\User;
+use App\Models\Experience;
+use App\Models\Certification;
 
 class Student extends Model
 {
@@ -36,5 +38,10 @@ class Student extends Model
     public function experiences(): HasMany
     {
         return $this->hasMany(Experience::class);
+    }
+
+    public function certifications(): HasMany
+    {
+        return $this->hasMany(Certification::class);
     }
 }

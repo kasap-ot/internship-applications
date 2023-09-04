@@ -22,7 +22,7 @@
         <div class="{{$segmentStyles}}">
             
             <div class="grid grid-cols-2 gap-4">
-                <div class="ml-10">
+                <div>
                     <div class="mb-4">
                         <span class="font-bold">{{ __('GPA: ') }}</span>
                         <span>{{ $student->gpa }}</span>
@@ -65,6 +65,24 @@
             @endforeach
         </div>
 
-        <x-primary-button class="mt-4">Download certifications</x-primary-button>
+        <div class="{{$headingStyles}}">
+            Certifications
+        </div>
+        <div class="{{$segmentStyles}}">
+            <div class="grid grid-cols-2 gap-4">
+                @foreach ($student->certifications as $certification)
+                    <div class="my-2 text-blue-700">
+                        {{$certification->name}}
+                    </div>
+                    <div class="flex justify-end">
+                        <a href="{{route('student.download', $certification)}}">
+                            <x-primary-button>Download</x-primary-button>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+            
+        </div>
+
     </div>
 </x-app-layout>

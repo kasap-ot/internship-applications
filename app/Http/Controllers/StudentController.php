@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -31,7 +32,7 @@ class StudentController extends Controller
         return view('students.show', ['student' => $student]);
     }
 
-    public function upload(Request $request)//: RedirectResponse
+    public function upload(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             'certification' => 'required|file|mimes:pdf|max:1999',
@@ -50,6 +51,13 @@ class StudentController extends Controller
         $path = $file->storeAs('public/certifications', $newFileName);
         Certification::create($dataToStore);
 
-        return 'upload done';
+        return redirect()->route('profile.edit');
+    }
+
+    public function download(Certification $certification)
+    {
+        $filePath = 'storage/certifications/'.$certification->name;
+        $fileName = $certification->name;
+        return response()->download($filePath, $fileName);
     }
 }

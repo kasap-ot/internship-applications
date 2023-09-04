@@ -13,14 +13,18 @@
 
         <form action="{{route('student.upload')}}" method="POST" enctype="multipart/form-data" class="mt-4">
             @csrf
-            <input type="file" name="certification"><br>
             <input type="hidden" id="studentId" name="studentId" value="{{$user->userable_id}}">
-            <x-primary-button class="mt-4">Upload</x-primary-button>
+            <input type="file" name="certification"><br>
+            <x-primary-button class="mt-2 mb-6">Upload</x-primary-button>
         </form>
         
+        
+        @foreach ($user->userable->certifications as $certification)
+            <div class="flex justify-between items-center">
+                <div class="my-2">{{$certification->name}}</div>
+                <x-primary-button>Delete</x-primary-button>
+            </div>
+        @endforeach
 
-        {{-- @foreach ( as )
-            
-        @endforeach --}}
     </header>
 </div>
