@@ -45,11 +45,11 @@
                                 </form>
                             </div>
                         </div>
-                        @if (session('message'))
-                            <div>{{ session('message') }}</div>
-                        @endif
                     </li>
                 @endforeach
+                @if (session('message'))
+                    <div class="text-red-500">{{ session('message') }}</div>
+                @endif
             </ul>
         @endif 
     </div>
