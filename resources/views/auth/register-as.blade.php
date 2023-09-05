@@ -9,9 +9,6 @@
                 <a href="{{ route('register.company') }}">
                     <x-secondary-button type="button">{{ __('Company') }}</x-secondary-button>
                 </a>
-                <a href="{{ route('register.admin') }}">
-                    <x-secondary-button type="button">{{ __('Admin') }}</x-secondary-button>
-                </a>
             </div>
         </div>
     </div>

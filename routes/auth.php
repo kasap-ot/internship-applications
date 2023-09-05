@@ -32,12 +32,6 @@ Route::middleware('guest')->group(function () {
     Route::post('register-company', [RegisteredUserController::class, 'storeCompany'])
         ->name('store.company');
 
-    // For admins
-    Route::get('register-admin', [RegisteredUserController::class, 'registerAdmin'])
-        ->name('register.admin');
-    Route::post('register-admin', [RegisteredUserController::class, 'storeAdmin'])
-        ->name('store.admin');
-
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 

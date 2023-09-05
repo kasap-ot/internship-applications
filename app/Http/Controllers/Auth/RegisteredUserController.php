@@ -35,10 +35,6 @@ class RegisteredUserController extends Controller
         return view('auth.register-company');
     }
 
-    public function registerAdmin(): View {
-        return view('auth.register-admin');
-    }
-
     private function validateUserFields(Request $request): void {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -101,21 +97,6 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
-    }
-
-    public function storeAdmin(Request $request): RedirectResponse
-    {
-        $this->validateUserFields($request);
-        
-        $dummyUserReferenceId = 0;
-        $user = $this->storeUser($request, $dummyUserReferenceId, 'admin');
-        event(new Registered($user));
-        Auth::login($user);
-        
-        // Because this is an admin-user, he is verified by default
-        User::where('id', $user->id)->update(['verified' => true]);
-        
         return redirect(RouteServiceProvider::HOME);
     }
 }
