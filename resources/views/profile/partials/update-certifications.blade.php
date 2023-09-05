@@ -22,7 +22,9 @@
         @foreach ($user->userable->certifications as $certification)
             <div class="flex justify-between items-center">
                 <div class="my-2">{{$certification->name}}</div>
-                <x-primary-button>Delete</x-primary-button>
+                <a href="{{route('certification.destroy', $certification)}}">
+                    <x-primary-button>Delete</x-primary-button>
+                </a>
             </div>
         @endforeach
 

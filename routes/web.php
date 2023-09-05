@@ -8,6 +8,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\CertificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +46,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/experience/{experienceId}', [ExperienceController::class, 'update'])->name('experience.update');
     Route::delete('/experience/{experienceId}', [ExperienceController::class, 'destroy'])->name('experience.destroy');
     
-    Route::get('/students/download/{certification}', [StudentController::class, 'download'])->name('student.download');
-    Route::post('/students/upload', [StudentController::class, 'upload'])->name('student.upload');
+    Route::get('/students/download/{certification}', [CertificationController::class, 'download'])->name('student.download');
+    Route::post('/students/upload', [CertificationController::class, 'upload'])->name('student.upload');
+    Route::get('students/certification/{certification}', [CertificationController::class, 'destroy'])->name('certification.destroy');
 });
 
 
