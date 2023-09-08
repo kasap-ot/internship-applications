@@ -7,7 +7,24 @@
         @else
             <ul class="space-y-4">
                 @foreach($verifiedUsers as $user)
-                    <li class="border border-gray-300 p-4 rounded-md shadow-sm bg-slate-100">
+                    @php
+                        $userType = $user->userable_type;
+                        switch ($userType) {
+                            case 'App\Models\Student': 
+                                $styles = 'border border-gray-300 p-4 rounded-md shadow-sm bg-yellow-200'; 
+                                $displayType = 'Student'; 
+                            break;
+                            case 'App\Models\Company': 
+                                $styles = 'border border-gray-300 p-4 rounded-md shadow-sm bg-orange-200'; 
+                                $displayType = 'Company'; 
+                            break;
+                            case 'admin':              
+                                $styles = 'border border-gray-300 p-4 rounded-md shadow-sm bg-green-200'; 
+                                $displayType = 'Admin'; 
+                            break;
+                        }
+                    @endphp
+                    <li class="{{$styles}}">
                         <div class="grid grid-cols-4 gap-4">
                             {{-- user name --}}
                             <div>{{ $user->name }}</div>
@@ -16,26 +33,14 @@
                             <div>{{ $user->email }}</div>
                             
                             {{-- user type --}}
-                            <div>{{ $user->userable_type }}</div>
+                            <div class="flex justify-center">{{ $displayType }}</div>
                             
                             {{-- view profile --}}
-                            <div>
+                            <div class="flex justify-center">
                                 <a href="{{route('profile.show', $user->id)}}">
                                     <x-primary-button>View profile</x-primary-button>
                                 </a>
                             </div>
-
-                            {{-- aprove / reject --}}
-                            {{-- <div>
-                                <form class="inline" action="{{route('verify-user', ['userId' => $user->id])}}" method="POST"> 
-                                    @csrf @method('PUT')
-                                    <x-primary-button>Approve</x-primary-button>
-                                </form>
-                                <form class="inline" action="{{route('reject-user', ['userId' => $user->id])}}" method="POST"> 
-                                    @csrf @method('PUT')
-                                    <x-primary-button>Reject</x-primary-button>
-                                </form>
-                            </div> --}}
                         </div>
                     </li>
                 @endforeach
