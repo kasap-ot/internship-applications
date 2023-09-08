@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use App\Models\Student;
 use App\Models\Company;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -27,9 +28,21 @@ class ProfileController extends Controller
     /**
      * Display a view-only perspective on the profile
      */
-    public function show(): View
+    public function show(User $user): View
     {
-        return view('profile.show');
+        $userType = $user->userable_type;
+        
+        if ($userType == Company::class) {
+            return view('companies.show', ['company' => $user->userable]);
+        }
+        else if ($userType == Student::class) {
+            return view('students.show', ['student' => $user->userable]);
+        }
+        else if ($userType == 'admin') {
+            return 'admin view is yet to be implemented...';
+        }
+        
+        return 'the user should not have a type of ' . $userType;
     }
 
     /**

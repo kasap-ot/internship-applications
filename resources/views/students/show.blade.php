@@ -80,9 +80,14 @@
                         </a>
                     </div>
                 @endforeach
-            </div>
-            
+            </div>            
         </div>
 
+        @can('is-admin')
+            <form action="{{route('remove-user', ['userId' => $student->user->id])}}" method="POST">
+                @csrf @method('DELETE')
+                <x-danger-button class="mt-4">Remove user, permanently</x-danger-button>
+            </form>
+        @endcan
     </div>
 </x-app-layout>

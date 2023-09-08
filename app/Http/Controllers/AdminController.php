@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
+use App\Models\Company;
+use App\Models\Student;
 
 
 class AdminController extends Controller
@@ -32,6 +34,20 @@ class AdminController extends Controller
         $user = User::find($request->userId);
         $user->delete();
         return redirect()->route('user-requests');
+    }
+
+    public function removeUser(int $userId): RedirectResponse
+    {
+        Gate::authorize('is-admin');
+        $user = User::find($userId);
+        
+        if ($user->userable_type != 'admin') {
+            $user->userable->delete();
+            $user->delete();
+        }
+        
+        return redirect()->route('verified-users')
+                ->with('message', 'User successfully removed');
     }
 
     public function verifiedUsers(): View

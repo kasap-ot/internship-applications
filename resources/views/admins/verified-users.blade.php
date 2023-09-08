@@ -2,6 +2,10 @@
     <div class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
         <h2 class="text-2xl font-bold mb-4">{{ __('Verified Users') }}</h2>
 
+        @if (session('message'))
+            <div class="mb-4">{{ session('message') }}</div>
+        @endif
+
         @if($verifiedUsers->isEmpty())
             <p>{{ __('No verified users found.') }}</p>
         @else
@@ -37,7 +41,7 @@
                             
                             {{-- view profile --}}
                             <div class="flex justify-center">
-                                <a href="{{route('profile.show', $user->id)}}">
+                                <a href="{{route('profile.show', $user)}}">
                                     <x-primary-button>View profile</x-primary-button>
                                 </a>
                             </div>

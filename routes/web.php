@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/show-profile/userId', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/show-profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 });
 
 // Students
@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/verify-user', [AdminController::class, 'verifyUser'])->name('verify-user');
     Route::put('/reject-user', [AdminController::class, 'rejectUser'])->name('reject-user');    
     Route::get('/verified-users', [AdminController::class, 'verifiedUsers'])->name('verified-users');
+    Route::delete('/remove-user/{userId}', [AdminController::class, 'removeUser'])->name('remove-user');
 });
 
 
