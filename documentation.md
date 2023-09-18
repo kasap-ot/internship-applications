@@ -11,10 +11,6 @@ As mentioned above, we have three types of users:
 2. Students
 3. Admins
 
-### Users (in general)
-
-<!-- ... -->
-
 ### Companies
 
 We store the following information for company profiles:
@@ -96,17 +92,30 @@ Aside from these features, the application implements other functionalities behi
 
 User authorization: using *Gates* we only allow access to certain controllers and views depending on several factors:
 
-- User type: [...]
-- Owner of offer: [...]
-- Able to apply for offer: [...]
-
-Blade components:
+- User types
+- Owner of offer
+- Able to apply for offer
 
 Database tables:
+- users
+- students
+- companies
+- offers
+- offer_student
+- certifications
+- experiences
+- other default tables
 
 One-to-many relationships:
+- student has multiple experiences
+- student has multiple certifications
+- company has multiple offers
 
 Many-to-many relationships:
+- students apply to many offers
+- offers can have multiple applicants
 
 One-to-one relationships:
+- user can be a student, company or admin
+- because of this, we have one-to-one relationship: user-student, user-company
 
