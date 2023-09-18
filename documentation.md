@@ -4,7 +4,7 @@ To bring together companies looking for workers and students looking for work. C
 
 Additionally, we have admin users who serve as moderators for all other users.
 
-## Types of users
+### Types of users
 
 As mentioned above, we have three types of users:
 1. Companies
