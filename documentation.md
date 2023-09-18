@@ -119,3 +119,106 @@ One-to-one relationships:
 - user can be a student, company or admin
 - because of this, we have one-to-one relationship: user-student, user-company
 
+## Technical documentation
+
+We have several controllers responsible for the core functionality:
+- AdminController
+- ApplicationController
+- CertificationController
+- CompanyController
+- ExperienceController
+- OfferController
+- StudentController
+- ProfileController - modified
+
+In essence, there is a controller for each model. All controllers are responsible for CRUD functionalities for their models.
+
+We have the following models:
+- Certification
+- Company
+- Experience
+- Offer
+- Student
+- User - modified
+
+In the `AuthServiceProvider.php` we have the following gates for user authorization:
+- is-student
+- is-company
+- is-admin
+- offer-owner
+- can-apply
+
+The database has undergone the following migrations:
+- create users table
+- create password reset tokens table
+- create failed jobs table
+- create personal access tokens table 
+- create students table
+- create companies table
+- create offers table
+- create applications table
+- add polymorphic users
+- add company-offer relationship
+- add logo image to companies
+- add *verified* field to users
+- create experiences table
+- create certifications table
+- set on-delete settings
+
+We store in the *public* folder the images for the company logos and the documents for the students.
+
+We have several views, layouts, and components in the `resources/views` folder for:
+- admins
+- applications
+- authentication
+- companies
+- experiences
+- offers
+- profile
+- students
+- other small modifications to the default views
+
+We have most of the routes in the `web.php` file. Some routes related to authentication are in the `auth.php` file.
+
+The routes are:
+- PUT        accept/{offerId}/{studentId}
+- GET        applicants/{offerId}
+- GET        applications
+- GET        apply/{offerId}
+- DELETE     cancel-application/{offerId}
+- GET        companies/{companyId}
+- POST       experience
+- GET        experience-create
+- PUT        experience/{experienceId}
+- DELETE     experience/{experienceId}
+- GET        offers
+- POST       offers
+- GET        offers/create
+- GET        offers/filter
+- GET        offers/{offer}
+- PUT PATCH  offers/{offer}
+- DELETE     offers/{offer}
+- GET        offers/{offer}/edit
+- GET        profile
+- PATCH      profile
+- DELETE     profile
+- GET        register-as
+- GET        register-company
+- POST       register-company
+- GET        register-student
+- POST       register-student
+- PUT        reject-user
+- DELETE     remove-user/{userId}
+- POST       reset-password
+- GET        reset-password/{token}
+- GET        show-profile/{user}
+- GET        students/certification/{certification}
+- GET        students/download/{certification}
+- POST       students/upload
+- GET        students/{student}
+- PUT        update-application/{offerId}/{studentId}
+- GET        user-requests
+- GET        verified-users
+- PUT        verify-user  verify-user › AdminController@verifyUser  
+
+The database is PostgreSQL. For testing purposes we have created the file `issok-connection.session.sql` - for testing queries directily with the DB. The necessary variables for connecting with the DB are stored in `.env`.
